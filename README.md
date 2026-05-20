@@ -31,8 +31,8 @@ Follow these steps to get the project running securely on your local machine.
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/devpulse.git
-cd devpulse
+git clone https://github.com/mahmudulkarim420/Ph-L2-Assignment-2.git
+cd Ph-L2-Assignment-2
 ```
 
 ### 2. Install Dependencies
