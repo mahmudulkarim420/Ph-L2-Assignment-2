@@ -1,9 +1,8 @@
 // modules/auth/authService.ts
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { pool } from "../../db/db";
-import config from "../../config";
-
+import { pool } from "../../db/db.js";
+import config from "../../config/index.js";
 
 export const authService = {
   // ১. Signup Logic

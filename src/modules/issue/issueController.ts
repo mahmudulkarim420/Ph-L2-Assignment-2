@@ -1,6 +1,6 @@
 import type { Response } from "express";
-import type { AuthRequest } from "../../interfaces/authInterface";
-import { issueService } from "./issueService";
+import type { AuthRequest } from "../../interfaces/authInterface.js";
+import { issueService } from "./issueService.js";
 
 // ================= CREATE ISSUE =================
 const createIssue = async (req: AuthRequest, res: Response) => {

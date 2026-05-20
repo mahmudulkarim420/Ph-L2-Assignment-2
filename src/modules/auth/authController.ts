@@ -1,6 +1,6 @@
 // modules/auth/authController.ts
 import { type Request, type Response } from "express";
-import { authService } from "./authService";
+import { authService } from "./authService.js";
 
 // ১. Signup Controller
 const signup = async (req: Request, res: Response) => {
@@ -62,8 +62,7 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
-
 export const authController = {
-    signup,
-    login
-}
+  signup,
+  login,
+};
