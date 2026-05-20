@@ -1,0 +1,16 @@
+﻿commit 632a1d6202248b7b741ee1a1dca390d84d60ec5a
+Author: Coder. Naiem <126259025+Naiem548@users.noreply.github.com>
+Date:   Wed May 20 22:21:05 2026 +0600
+
+    vercel deploy issue fixed again
+
+ src/app.ts                           |  7 ++-----
+ src/db/db.ts                         |  2 +-
+ src/middleware/authMiddleware.ts     |  4 ++--
+ src/modules/auth/authController.ts   |  9 ++++-----
+ src/modules/auth/authRoute.ts        |  4 ++--
+ src/modules/auth/authService.ts      |  5 ++---
+ src/modules/issue/issueController.ts |  4 ++--
+ src/modules/issue/issueRoute.ts      | 18 +++++++++---------
+ src/modules/issue/issueService.ts    |  2 +-
+ 9 files changed, 25 insertions(+), 30 deletions(-)
