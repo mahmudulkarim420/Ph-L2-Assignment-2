@@ -1,7 +1,9 @@
 import { pool } from "../../db/db.js";
 
 export const issueService = {
-  // ১. Create Issue
+  
+   //Creates a new issue in the database
+   
   async createIssue(title: string, description: string, type: string, reporter_id: number) {
     const insertQuery = `
       INSERT INTO issues (title, description, type, reporter_id) 
@@ -12,7 +14,9 @@ export const issueService = {
     return result.rows[0];
   },
 
-  // ২. Get All Issues (Without SQL JOIN)
+  
+   //Retrieves all issues with filtering and sorting, includes reporter details
+   
   async getAllIssues(sort: string, type?: string, status?: string) {
     let query = `SELECT * FROM issues WHERE 1=1`;
     const queryParams: (string | number)[] = [];
@@ -55,7 +59,9 @@ export const issueService = {
     }));
   },
 
-  // ৩. Get Single Issue
+  
+   //Retrieves a single issue by ID with reporter details
+   
   async getIssueById(id: number) {
     const issueQuery = `SELECT * FROM issues WHERE id = $1`;
     const issueResult = await pool.query(issueQuery, [id]);
@@ -71,7 +77,9 @@ export const issueService = {
     return issue;
   },
 
-  // ৪. Update Issue
+  
+   //Updates issue fields with optional parameters
+   
   async updateIssue(
     id: number,
     title?: string,
@@ -94,7 +102,9 @@ export const issueService = {
     return result.rows[0];
   },
 
-  // ৫. Delete Issue
+  
+   //Deletes an issue by ID
+   
   async deleteIssue(id: number) {
     const deleteQuery = `DELETE FROM issues WHERE id = $1 RETURNING id`;
     const result = await pool.query(deleteQuery, [id]);

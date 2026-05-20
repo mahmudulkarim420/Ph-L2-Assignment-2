@@ -1,10 +1,10 @@
-// modules/auth/authController.ts
 import { type Request, type Response, type NextFunction } from "express";
 import { authService } from "./authService.js";
 import { catchAsync } from "../../utils/catchAsync.js";
 import { sendResponse } from "../../utils/sendResponse.js";
 
-// ১. Signup Controller
+// Handles user registration
+
 const signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { name, email, password, role } = req.body;
 
@@ -18,7 +18,8 @@ const signup = catchAsync(async (req: Request, res: Response, next: NextFunction
   });
 });
 
-// ২. Login Controller
+// Handles user authentication and token generation
+
 const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
 

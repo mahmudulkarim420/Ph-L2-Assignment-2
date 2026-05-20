@@ -2,9 +2,12 @@ import dotenv from "dotenv";
 import path from "path";
 import crypto from "crypto";
 
+// Load environment variables
 dotenv.config({
   path: path.join(process.cwd(), ".env"),
 });
+
+// Application configuration from environment variables
 
 const config = {
   connection_string: process.env.CONNECTION_STRING as string,

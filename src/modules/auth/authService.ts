@@ -1,11 +1,11 @@
-// modules/auth/authService.ts
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { pool } from "../../db/db.js";
 import config from "../../config/index.js";
 
 export const authService = {
-  // ১. Signup Logic
+  //Creates a new user with hashed password
+
   async signupUser(name: string, email: string, password: string, role: string) {
     const salt = 10;
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -22,7 +22,8 @@ export const authService = {
     return result.rows[0];
   },
 
-  // ২. Login Logic
+  //Authenticates user and generates JWT token
+
   async loginUser(email: string, password: string) {
     const findUserQuery = `SELECT * FROM users WHERE email = $1;`;
     const result = await pool.query(findUserQuery, [email]);

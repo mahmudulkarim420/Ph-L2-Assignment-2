@@ -4,6 +4,8 @@ import config from "../config/index.js";
 import type { AuthRequest, JwtPayload } from "../interfaces/authInterface.js";
 import { sendResponse } from "../utils/sendResponse.js";
 
+// Middleware to verify JWT token and attach user data to request
+ 
 export const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
 

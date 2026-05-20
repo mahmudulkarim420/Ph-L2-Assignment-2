@@ -1,12 +1,17 @@
 import { Pool } from "pg";
 import config from "../config/index.js";
 
+// PostgreSQL connection pool
+
 export const pool = new Pool({
   connectionString: config.connection_string,
 });
 
+// Initializes database connection and creates required tables
+
 export const connectDB = async () => {
   try {
+    // Create users table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -18,6 +23,8 @@ export const connectDB = async () => {
         updated_at TIMESTAMP DEFAULT NOW()
     );
     `);
+
+    // Create issues table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS issues (
         id SERIAL PRIMARY KEY,

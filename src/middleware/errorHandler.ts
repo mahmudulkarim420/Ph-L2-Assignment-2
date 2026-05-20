@@ -5,6 +5,8 @@ interface CustomError extends Error {
   code?: string;
 }
 
+// Global error handler middleware for centralized error processing
+ 
 export const globalErrorHandler = (
   err: CustomError,
   req: Request,
@@ -17,6 +19,7 @@ export const globalErrorHandler = (
   let message = "Internal Server Error";
   let errors: unknown = "An unexpected error occurred";
 
+  // Handle PostgreSQL unique constraint violation
   if (err.code === "23505") {
     statusCode = 400;
     message = "Email already exists";

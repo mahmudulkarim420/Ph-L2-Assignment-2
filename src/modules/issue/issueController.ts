@@ -4,7 +4,8 @@ import { issueService } from "./issueService.js";
 import { catchAsync } from "../../utils/catchAsync.js";
 import { sendResponse } from "../../utils/sendResponse.js";
 
-// ================= CREATE ISSUE =================
+// Creates a new issue
+
 const createIssue = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { title, description, type } = req.body;
   const reporter_id = req.user!.id;
@@ -19,7 +20,8 @@ const createIssue = catchAsync(async (req: AuthRequest, res: Response, next: Nex
   });
 });
 
-// ================= GET ALL ISSUES =================
+// Retrieves all issues with optional filtering and sorting
+
 const getAllIssues = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   const sort = (req.query.sort as string) || "newest";
   const type = req.query.type as string | undefined;
@@ -35,7 +37,8 @@ const getAllIssues = catchAsync(async (req: AuthRequest, res: Response, next: Ne
   });
 });
 
-// ================= GET SINGLE ISSUE =================
+// Retrieves a single issue by ID
+
 const getSingleIssue = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   const issueId = Number(req.params.id);
 
@@ -65,7 +68,8 @@ const getSingleIssue = catchAsync(async (req: AuthRequest, res: Response, next: 
   });
 });
 
-// ================= UPDATE ISSUE =================
+// Updates an issue with role-based permissions
+
 const updateIssue = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   const issueId = Number(req.params.id);
   const { title, description, type, status } = req.body;
@@ -93,7 +97,7 @@ const updateIssue = catchAsync(async (req: AuthRequest, res: Response, next: Nex
   const isOwner = issue.reporter.id === user.id;
   const isOpen = issue.status === "open";
 
-  // ❗ Permission check
+  // Verify user permissions
   if (!isMaintainer) {
     if (!isOwner) {
       return sendResponse(res, {
@@ -112,7 +116,7 @@ const updateIssue = catchAsync(async (req: AuthRequest, res: Response, next: Nex
     }
   }
 
-  // ❗ ROLE-BASED UPDATE CONTROL (IMPORTANT FIX)
+  // Apply role-based update restrictions
   let updatedIssue;
 
   if (isMaintainer) {
@@ -129,7 +133,8 @@ const updateIssue = catchAsync(async (req: AuthRequest, res: Response, next: Nex
   });
 });
 
-// ================= DELETE ISSUE =================
+// Deletes an issue (maintainer only)
+
 const deleteIssue = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   const issueId = Number(req.params.id);
 

@@ -8,6 +8,7 @@ type ResponseData<T> = {
   errors?: unknown;
 };
 
+// Standardized response formatter for API endpoints
 export const sendResponse = <T>(res: Response, data: ResponseData<T>) => {
   const responsePayload: Record<string, unknown> = {
     success: data.success,

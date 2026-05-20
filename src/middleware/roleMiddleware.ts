@@ -1,8 +1,9 @@
-// middleware/roleMiddleware.ts
 import type { Response, NextFunction } from "express";
 import type { AuthRequest } from "../interfaces/authInterface.js";
 import { sendResponse } from "../utils/sendResponse.js";
 
+// Middleware to restrict access based on user roles
+ 
 export const requireRole = (allowedRoles: string[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction): void => {
     const user = req.user;
