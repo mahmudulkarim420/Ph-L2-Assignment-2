@@ -2,12 +2,14 @@ import { type Response, type NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import config from "../config/index.js";
 import type { AuthRequest, JwtPayload } from "../interfaces/authInterface.js";
+import { sendResponse } from "../utils/sendResponse.js";
 
 export const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({
+    return sendResponse(res, {
+      statusCode: 401,
       success: false,
       message: "Unauthorized: No token provided",
     });
@@ -20,7 +22,8 @@ export const verifyToken = (req: AuthRequest, res: Response, next: NextFunction)
 
     next();
   } catch (error) {
-    return res.status(401).json({
+    return sendResponse(res, {
+      statusCode: 401,
       success: false,
       message: "Unauthorized: Invalid or expired token",
     });

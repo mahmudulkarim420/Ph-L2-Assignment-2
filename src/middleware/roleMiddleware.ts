@@ -1,13 +1,15 @@
 // middleware/roleMiddleware.ts
 import type { Response, NextFunction } from "express";
 import type { AuthRequest } from "../interfaces/authInterface.js";
+import { sendResponse } from "../utils/sendResponse.js";
 
 export const requireRole = (allowedRoles: string[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction): void => {
     const user = req.user;
 
     if (!user) {
-      res.status(401).json({
+      sendResponse(res, {
+        statusCode: 401,
         success: false,
         message: "Unauthorized",
         errors: "User not authenticated",
@@ -16,7 +18,8 @@ export const requireRole = (allowedRoles: string[]) => {
     }
 
     if (!allowedRoles.includes(user.role)) {
-      res.status(403).json({
+      sendResponse(res, {
+        statusCode: 403,
         success: false,
         message: "Forbidden",
         errors: "Valid token but insufficient role/permissions",

@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
+import crypto from "crypto";
+
 dotenv.config({
   path: path.join(process.cwd(), ".env"),
 });
@@ -7,7 +9,7 @@ dotenv.config({
 const config = {
   connection_string: process.env.CONNECTION_STRING as string,
   port: process.env.PORT,
-  jwt_secret: process.env.JWT_SECRET as string,
+  jwt_secret: process.env.JWT_SECRET || crypto.randomBytes(64).toString("hex"),
 };
 
 export default config;
