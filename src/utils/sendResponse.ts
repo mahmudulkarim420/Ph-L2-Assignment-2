@@ -9,10 +9,16 @@ type ResponseData<T> = {
 };
 
 export const sendResponse = <T>(res: Response, data: ResponseData<T>) => {
-  res.status(data.statusCode).json({
+  const responsePayload: Record<string, unknown> = {
     success: data.success,
     message: data.message,
-    ...(data.data !== undefined && { data: data.data }),
-    ...(data.errors !== undefined && { errors: data.errors }),
-  });
+  };
+
+  if (data.success) {
+    responsePayload.data = data.data !== undefined ? data.data : null;
+  } else {
+    responsePayload.errors = data.errors !== undefined ? data.errors : null;
+  }
+
+  res.status(data.statusCode).json(responsePayload);
 };

@@ -41,7 +41,9 @@ export const issueService = {
     const usersQuery = `SELECT id, name, role FROM users WHERE id = ANY($1::int[])`;
     const usersResult = await pool.query(usersQuery, [reporterIds]);
 
-    const usersMap = usersResult.rows.reduce((acc, user) => {
+    const usersMap = usersResult.rows.reduce<
+      Record<number, { id: number; name: string; role: string }>
+    >((acc, user) => {
       acc[user.id] = user;
       return acc;
     }, {});
