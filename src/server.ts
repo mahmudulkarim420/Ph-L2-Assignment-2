@@ -1,6 +1,6 @@
-import app from "./app";
-import config from "./config";
-import { connectDB } from "./db/db";
+import app from "./app.js";
+import config from "./config/index.js";
+import { connectDB } from "./db/db.js";
 
 
 const main = () => {
