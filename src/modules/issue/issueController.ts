@@ -9,7 +9,13 @@ import { sendResponse } from "../../utils/sendResponse.js";
 const createIssue = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { title, description, type } = req.body;
   const reporter_id = req.user!.id;
-
+  if (!title || !description || !type) {
+    return sendResponse(res, {
+      statusCode: 400,
+      success: false,
+      message: "title, description, and type are required",
+    });
+  }
   const newIssue = await issueService.createIssue(title, description, type, reporter_id);
 
   sendResponse(res, {
@@ -75,7 +81,7 @@ const updateIssue = catchAsync(async (req: AuthRequest, res: Response, next: Nex
   const { title, description, type, status } = req.body;
   const user = req.user!;
 
-  if (isNaN(issueId)) {
+  if (!issueId) {
     return sendResponse(res, {
       statusCode: 400,
       success: false,
@@ -94,7 +100,7 @@ const updateIssue = catchAsync(async (req: AuthRequest, res: Response, next: Nex
   }
 
   const isMaintainer = user.role === "maintainer";
-  const isOwner = issue.reporter.id === user.id;
+  const isOwner = issue.reporter?.id === user.id;
   const isOpen = issue.status === "open";
 
   // Verify user permissions
@@ -138,7 +144,7 @@ const updateIssue = catchAsync(async (req: AuthRequest, res: Response, next: Nex
 const deleteIssue = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   const issueId = Number(req.params.id);
 
-  if (isNaN(issueId)) {
+  if (!issueId) {
     return sendResponse(res, {
       statusCode: 400,
       success: false,

@@ -7,7 +7,13 @@ import { sendResponse } from "../../utils/sendResponse.js";
 
 const signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { name, email, password, role } = req.body;
-
+  if (!name || !email || !password) {
+    return sendResponse(res, {
+      statusCode: 400,
+      success: false,
+      message: "name, email, and password are required",
+    });
+  }
   const newUser = await authService.signupUser(name, email, password, role);
 
   sendResponse(res, {
@@ -22,7 +28,13 @@ const signup = catchAsync(async (req: Request, res: Response, next: NextFunction
 
 const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-
+  if (!email || !password) {
+    return sendResponse(res, {
+      statusCode: 400,
+      success: false,
+      message: "email and password are required",
+    });
+  }
   const loginData = await authService.loginUser(email, password);
 
   sendResponse(res, {
